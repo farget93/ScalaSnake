@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'scala'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group 'cz.ctu.fit.kovart12'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.scalafx:scalafx_${scalaMajor}:${scalaFxVersion}"
+    implementation "com.typesafe.akka:akka-actor-typed_${scalaMajor}:${akkaVersion}"
+    implementation "com.typesafe.akka:akka-slf4j_${scalaMajor}:${akkaVersion}"
+    implementation "com.github.scopt:scopt_${scalaMajor}:${scoptVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+}
+
+scala {
+    version = "${scalaMajor}.${scalaMinor}"
+}
+
+application {
+    mainClass = 'cz.ctu.fit.kovart12.snake.Main'
+}
+
+javafx {
+    version = "${javaFxVersion}"
+    modules = ['javafx.controls', 'javafx.media']
+}
+
+java {
+    targetCompatibility = "${javaVersion}"
+}
+
+shadowJar {
+    append 'reference.conf'
+    append 'version.conf'
+    with jar
+}
